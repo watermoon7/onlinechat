@@ -82,8 +82,7 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        #self.host = "86.25.143.94"  # wills IP address (keep secrit)
-        self.host = "192.168.0.112"
+        self.host = "86.25.143.94"  # wills IP address (keep secrit)
         self.port = 7013
         self.connected = False
         self.msg_list = ["---Start---"]
