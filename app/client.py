@@ -127,7 +127,7 @@ class App(customtkinter.CTk):
         self.client_socket = socket.socket()
         self.client_socket.settimeout(3) # times out after 3 seconds of trying to connect
 
-        self.title("effCorentin")
+        self.title("onlinechat")
         self.geometry("1080x720")
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
