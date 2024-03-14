@@ -16,7 +16,7 @@ Type this command into a terminal to make the main file executable.
     
     chmod +x run_me_unix.sh
 
-Then, run the app by either double clicking the "run_me_unix.sh" file OR running this command in a terminal
+Then, run the app by either double-clicking the "run_me_unix.sh" file OR running this command in a terminal
 
     sh run_me_unix.sh
 
