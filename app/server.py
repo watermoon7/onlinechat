@@ -8,7 +8,6 @@ import utils
 - The server is responsible for sending and receiving messages
 - Needs Python 3.11 (doesn't work on 3.12 but probably does work on older versions)
 
-
 Message format:
 
 message = {
@@ -109,9 +108,9 @@ class Server:
         while True:
             self.socket.listen(1)
             conn, address = self.socket.accept()
-            print("=------------------------------------------=")
+            print("=----------------------------------------------=")
             print("<> New connection from: " + str(address) + " <>")
-            print("=------------------------------------------=")
+            print("=---------------------------------------------=")
 
             new_client = Client(self, conn, address)
             self.clients.append(new_client)

@@ -1,9 +1,9 @@
 import socket
-import struct
 import customtkinter
 import json
 import threading
 import utils
+import select
 
 
 def change_theme(new_theme: str):
@@ -117,13 +117,12 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        #self.host = "86.25.143.94"  # wills IP address (keep secrit) (use when server is running on different network)
-        #self.host = "192.168.0.112" # use this when running the server on the same network
         self.host = "127.0.0.1"
-        self.port = 7014
+        self.port = 7015
         self.connected = False
         self.msg_list = []
         self.address = None
+        self.running = True
 
         self.client_socket = socket.socket()
         self.client_socket.settimeout(3) # times out after 3 seconds of trying to connect
@@ -188,7 +187,7 @@ class App(customtkinter.CTk):
     def on_close(self):
         if self.connected:
             self.disconnect()
-
+        self.running = False
         self.destroy()
 
 
@@ -244,12 +243,12 @@ class App(customtkinter.CTk):
         else:
             self.chat_box.set_console_text("Not connected to the server")
 
+
     def receive_message(self):
-        print(1)
-        while True:
-            while self.connected:
+        if self.running and self.connected:
+            ready_to_read, _, _ = select.select([self.client_socket], [], [], 0)
+            if self.client_socket in ready_to_read:
                 data = utils.receive(self.client_socket)
-                print(data)
                 if data == "KICKED":
                     self.disconnect()
                     self.connected = False
@@ -264,9 +263,15 @@ class App(customtkinter.CTk):
                         print(f"{data}: {e}")
 
 
+def start_client():
+    app.receive_message()
+    app.after(1000, start_client)
+
 
 if __name__ == '__main__':
     app = App()
-    thread = threading.Thread(target=app.receive_message)
+
+    thread = threading.Thread(target=start_client)
     thread.start()
+
     app.mainloop()
