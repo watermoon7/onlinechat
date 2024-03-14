@@ -6,7 +6,7 @@ To use this App, download it onto your machine and extract the files.
 ## How to run the client app
 ### Running on Windows
 
-Simply double click the "run_me_windows.bat" file.
+Simply double-click the "run_me_windows.bat" or "run_me_windows.ps1" file.
 
 ### Running On Linux/ MAC
 
